@@ -1,24 +1,49 @@
+using azure_ad_keyvault_viewer_api.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+var configuration = builder.Configuration;
+string ClientId = configuration["AzureKeyVault:ClientId"];
+string TenantId = configuration["AzureKeyVault:TenantId"];
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = $"https://login.microsoftonline.com/{TenantId}";
+        options.Audience = ClientId;
+    });
+
+
+builder.Services.AddAuthorization();
+
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Register the custom middleware
+
+builder.Services.AddEndpointsApiExplorer(); // Required for API explorer (Swagger)
+builder.Services.AddSwaggerGen(); // Adds Swagger generation
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(); // Enable Swagger
+    app.UseSwaggerUI(); // Enable Swagger UI
 }
 
-app.UseHttpsRedirection();
 
+app.UseCors();
+app.UseMiddleware<AzureAdJwtMiddleware>();
+app.UseAuthentication();
 app.UseAuthorization();
+
+// Add your custom middleware
 
 app.MapControllers();
 
