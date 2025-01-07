@@ -10,13 +10,13 @@ namespace MyApi.Controllers
     public class SecretsController : ControllerBase
     {
         private readonly SecretClient _secretClient;
-
+        private readonly string _env = "";
         public SecretsController(IConfiguration configuration)
         {
             // Get Key Vault name from appsettings.json
             var keyVaultName = configuration["AzureKeyVault:KeyVaultName"];
             var keyVaultUrl = $"https://{keyVaultName}.vault.azure.net/";
-
+            _env = configuration["Env"];
             // Initialize SecretClient using DefaultAzureCredential
             _secretClient = new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential());
         }
@@ -62,7 +62,7 @@ namespace MyApi.Controllers
                     // Use secret.Name and secret.Value
                     if (secret.Name.Contains(filter, StringComparison.OrdinalIgnoreCase))
                     {
-                        secrets[secret.Name] = secret.Value;
+                        secrets[secret.Name] = secret.Value + " from " +_env;
                     }
                 }
 

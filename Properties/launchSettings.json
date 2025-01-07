@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
     "azure_ad_keyvault_viewer_api": {
       "commandName": "Project",
@@ -23,18 +24,18 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "environmentVariables": {
-        "ASPNETCORE_URLS": "http://+:80" // Corrected the quotes around the URL
+        "ASPNETCORE_URLS": "http://+:80"
       },
       "publishAllPorts": true,
-      "useSSL": false // Disable SSL if you don't want HTTPS
-    },
-    "$schema": "https://json.schemastore.org/launchsettings.json",
-    "iisSettings": {
-      "windowsAuthentication": false,
-      "anonymousAuthentication": true,
-      "iisExpress": {
-        "applicationUrl": "http://localhost:4705",
-        "sslPort": 44309
-      }
+      "useSSL": false
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:4705",
+      "sslPort": 44309
     }
   }
+}
