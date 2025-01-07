@@ -43,6 +43,10 @@ builder.Services.AddEndpointsApiExplorer(); // Required for API explorer (Swagge
 builder.Services.AddSwaggerGen(); // Adds Swagger generation
 
 var app = builder.Build();
+
+// Serve static files from the "wwwroot" folder
+app.UseStaticFiles();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
