@@ -2,6 +2,16 @@ using azure_ad_keyvault_viewer_api.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure Kestrel to listen on both HTTP (port 80) and HTTPS (port 7003)
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(80); // HTTP on port 80
+    options.ListenAnyIP(7003, listenOptions => // HTTPS on port 7003
+    {
+        listenOptions.UseHttps(); // Ensure HTTPS is enabled
+    });
+});
+
 // Add services to the container
 builder.Services.AddCors(options =>
 {
