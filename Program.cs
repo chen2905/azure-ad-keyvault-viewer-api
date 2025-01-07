@@ -12,6 +12,9 @@ builder.WebHost.ConfigureKestrel(options =>
     });
 });
 
+// Configure the application to use specific URLs
+builder.WebHost.UseUrls("http://*:80");
+
 // Add services to the container
 builder.Services.AddCors(options =>
 {
