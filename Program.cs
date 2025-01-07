@@ -6,10 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(80); // HTTP on port 80
-    options.ListenAnyIP(7003, listenOptions => // HTTPS on port 7003
-    {
-        listenOptions.UseHttps(); // Ensure HTTPS is enabled
-    });
+    //options.ListenAnyIP(7003, listenOptions => // HTTPS on port 7003
+    //{
+    //    listenOptions.UseHttps(); // Ensure HTTPS is enabled
+    //});
 });
 
 // Configure the application to use specific URLs.
