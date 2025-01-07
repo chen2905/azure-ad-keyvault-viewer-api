@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://keyvaultviewerapiregistry.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_f783624b077148e399da237a817927aa }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_9ead0cc300fa421da328909861dcb2ab }}
+        username: ${{ secrets.CONTAINER_REGISTRY_NAME }}
+        password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: keyvaultviewerapiregistry.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_f783624b077148e399da237a817927aa }}/azure-ad-keyvault-viewer-api:${{ github.sha }}
+        tags: keyvaultviewerapiregistry.azurecr.io/${{ secrets.CONTAINER_REGISTRY_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'azure-ad-keyvault-viewer-api'
         slot-name: 'staging'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_eab1940f321e430a991bd0458db4ee7b }}
-        images: 'keyvaultviewerapiregistry.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_f783624b077148e399da237a817927aa }}/azure-ad-keyvault-viewer-api:${{ github.sha }}'
+        publish-profile: ${{ secrets.APP_SERVICE_PUBLISHSETTINGS }}
+        images: 'keyvaultviewerapiregistry.azurecr.io/${{ secrets.CONTAINER_REGISTRY_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}'
