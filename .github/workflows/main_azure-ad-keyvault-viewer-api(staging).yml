@@ -41,11 +41,15 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+    - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'azure-ad-keyvault-viewer-api'
         slot-name: 'staging'
-        publish-profile: ${{ secrets.APP_SERVICE_PUBLISHSETTINGS }}
         images: 'keyvaultviewerapiregistry.azurecr.io/${{ secrets.CONTAINER_REGISTRY_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}'
