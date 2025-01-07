@@ -50,5 +50,4 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'azure-ad-keyvault-viewer-api'
-        slot-name: 'staging'
         images: 'keyvaultviewerapiregistry.azurecr.io/${{ secrets.CONTAINER_REGISTRY_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}'
