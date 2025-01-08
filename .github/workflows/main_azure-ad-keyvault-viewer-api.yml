@@ -22,7 +22,7 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v2
       with:
-        registry: https://keyvaultviewerapiregistry.azurecr.io/
+        registry: https://${{ secrets.CONTAINER_REGISTRY_NAME }}.azurecr.io/
         username: ${{ secrets.CONTAINER_REGISTRY_NAME }}
         password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
 
@@ -50,4 +50,4 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'azure-ad-keyvault-viewer-api'
-        images: '${{ secrets.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ secrets.CONTAINER_REGISTRY_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}'
+        images: '${{ secrets.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ secrets.CONTAINER_REPOS_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}'
