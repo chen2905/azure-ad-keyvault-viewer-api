@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ${{ secrets.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ secrets.CONTAINER_REGISTRY_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}
+        tags: ${{ secrets.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ secrets.CONTAINER_REPOS_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
