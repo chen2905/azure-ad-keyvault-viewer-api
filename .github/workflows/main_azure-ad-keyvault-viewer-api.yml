@@ -30,7 +30,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: keyvaultviewerapiregistry.azurecr.io/${{ secrets.CONTAINER_REGISTRY_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}
+        tags: ${{ secrets.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ secrets.CONTAINER_REGISTRY_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -50,4 +50,4 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'azure-ad-keyvault-viewer-api'
-        images: 'keyvaultviewerapiregistry.azurecr.io/${{ secrets.CONTAINER_REGISTRY_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}'
+        images: '${{ secrets.CONTAINER_REGISTRY_NAME }}.azurecr.io/${{ secrets.CONTAINER_REGISTRY_NAME }}/azure-ad-keyvault-viewer-api:${{ github.sha }}'
